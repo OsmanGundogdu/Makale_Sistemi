@@ -1,0 +1,12 @@
+﻿<ul>
+    @if (Context.Session.GetString("KullaniciEmail") != null)
+    {
+        <li>@Context.Session.GetString("KullaniciEmail")</li>
+        <li><a asp-controller="Auth" asp-action="CikisYap">Çıkış Yap</a></li>
+    }
+    else
+    {
+        <li><a asp-controller="Auth" asp-action="GirisYap">Giriş Yap</a></li>
+        <li><a asp-controller="Auth" asp-action="KayitOl">Kayıt Ol</a></li>
+    }
+</ul>

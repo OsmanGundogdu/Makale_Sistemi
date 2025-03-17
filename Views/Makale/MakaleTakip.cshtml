@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Makale Takip";
+}
+
+<h2>Makale Takip Sistemi</h2>
+
+<form method="post" asp-action="MakaleDurumuSorgula">
+    <label>Makale Takip Numarası:</label>
+    <input type="text" name="takipNo" required class="form-control" />
+
+    <label>E-posta Adresi:</label>
+    <input type="email" name="email" required class="form-control" />
+
+    <button type="submit" class="btn btn-primary mt-2">Sorgula</button>
+</form>
+
+@if (ViewBag.TakipNo != null)
+{
+    <div class="alert alert-info mt-3">
+        <strong>Takip No:</strong> @ViewBag.TakipNo <br />
+        <strong>Durum:</strong> @ViewBag.Durum
+    </div>
+}

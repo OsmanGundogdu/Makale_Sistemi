@@ -1,0 +1,11 @@
+<form asp-action="KayitOl" method="post">
+    <input type="text" name="AdSoyad" placeholder="Ad Soyad" required />
+    <input type="email" name="Email" placeholder="E-Posta" required />
+    <input type="password" name="Sifre" placeholder="Şifre" required />
+    <select name="Rol">
+        <option value="Yazar">Yazar</option>
+        <option value="Editör">Editör</option>
+        <option value="Hakem">Hakem</option>
+    </select>
+    <button type="submit">Kayıt Ol</button>
+</form>
