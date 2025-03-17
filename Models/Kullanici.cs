@@ -8,15 +8,15 @@ namespace MakaleSistemi.Models
         public int Id { get; set; }
 
         [Required]
-        public string AdSoyad { get; set; }
+        public string AdSoyad { get; set; } = string.Empty;
 
         [Required, EmailAddress]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [Required]
-        public string Sifre { get; set; }  // Şifreleme ekleyebiliriz.
+        public string Sifre { get; set; } = string.Empty; // Şifreleme ekleyebiliriz.
 
         [Required]
-        public string Rol { get; set; } // "Yazar", "Editör", "Hakem"
+        public string Rol { get; set; } = string.Empty; // "Yazar", "Editör", "Hakem"
     }
 }

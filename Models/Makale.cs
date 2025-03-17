@@ -9,14 +9,14 @@ namespace MakaleSistemi.Models
         public int Id { get; set; }
 
         [Required]
-        public string Baslik { get; set; }
+        public string Baslik { get; set; } = string.Empty;
 
         [Required]
-        public string YazarEmail { get; set; }
+        public string YazarEmail { get; set; } = string.Empty;
 
-        public string DosyaYolu { get; set; }
+        public string DosyaYolu { get; set; } = string.Empty;
 
-        public string TakipNumarasi { get; set; }
+        public string TakipNumarasi { get; set; } = string.Empty;
 
         public string Durum { get; set; } = "Beklemede";
 

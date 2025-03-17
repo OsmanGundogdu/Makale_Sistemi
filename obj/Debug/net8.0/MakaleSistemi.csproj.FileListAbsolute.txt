@@ -157,3 +157,4 @@ C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.
 C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\obj\Debug\net8.0\MakaleSistemi.csproj.AssemblyReference.cache
 C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\obj\Debug\net8.0\MakaleSi.BD9421D0.Up2Date
 C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\obj\Debug\net8.0\MakaleSistemi.sourcelink.json
