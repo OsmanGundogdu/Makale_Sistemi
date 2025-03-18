@@ -1,5 +1,71 @@
-<form asp-action="GirisYap" method="post">
-    <input type="email" name="email" placeholder="E-Posta" required />
-    <input type="password" name="sifre" placeholder="Şifre" required />
-    <button type="submit">Giriş Yap</button>
-</form>
+@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h3><i class="fas fa-sign-in-alt"></i> Giriş Yap</h3>
+                    </div>
+                    <div class="card-body">
+                        @if (TempData["Mesaj"] != null)
+                        {
+                            <div class="alert alert-success">
+                                @TempData["Mesaj"]
+                            </div>
+                        }
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                @Html.ValidationSummary()
+                            </div>
+                        }
+
+                        <form asp-action="GirisYap" method="post">
+                            <div class="form-group">
+                                <label for="Email">E-Posta</label>
+                                <input type="email" class="form-control" id="Email" name="email" placeholder="E-Posta"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Sifre">Şifre</label>
+                                <input type="password" class="form-control" id="Sifre" name="sifre" placeholder="Şifre"
+                                    required>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-block">Giriş Yap</button>
+                        </form>
+
+                        <div class="text-center mt-3">
+                            <p>Hesabınız yok mu? <a href="kaydol">Kayıt Olun</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

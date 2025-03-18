@@ -2,22 +2,125 @@
     ViewData["Title"] = "Makale Takip";
 }
 
-<h2>Makale Takip Sistemi</h2>
+<!DOCTYPE html>
+<html lang="tr">
 
-<form method="post" asp-action="MakaleDurumuSorgula">
-    <label>Makale Takip Numarası:</label>
-    <input type="text" name="takipNo" required class="form-control" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
 
-    <label>E-posta Adresi:</label>
-    <input type="email" name="email" required class="form-control" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <style>
+        .form-container {
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-    <button type="submit" class="btn btn-primary mt-2">Sorgula</button>
-</form>
+        .form-group label {
+            font-weight: bold;
+        }
 
-@if (ViewBag.TakipNo != null)
-{
-    <div class="alert alert-info mt-3">
-        <strong>Takip No:</strong> @ViewBag.TakipNo <br />
-        <strong>Durum:</strong> @ViewBag.Durum
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .alert-info {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .alert-warning {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        .text-center {
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-header">
+                        <h3><i class="fas fa-search"></i> Makale Takip Sistemi</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" asp-action="MakaleDurumuSorgula" class="form-container">
+                            <div class="form-group">
+                                <label for="takipNo">Makale Takip Numarası:</label>
+                                <input type="text" id="takipNo" name="takipNo" class="form-control" required
+                                    placeholder="Takip numarasını girin">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">E-posta Adresi:</label>
+                                <input type="email" id="email" name="email" class="form-control" required
+                                    placeholder="E-posta adresinizi girin">
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-block mt-3">Sorgula <i
+                                    class="fas fa-search"></i></button>
+                        </form>
+
+                        @if (ViewBag.TakipNo != null && ViewBag.Durum != null)
+                        {
+                            <div class="alert alert-info mt-4">
+                                <strong>Takip No:</strong> @ViewBag.TakipNo <br />
+                                <strong>Durum:</strong> @ViewBag.Durum
+                            </div>
+                        }
+
+                        @if (ViewBag.TakipNo == null && ViewBag.Durum == null)
+                        {
+                            <div class="alert alert-warning mt-4">
+                                <strong>Uyarı:</strong> Makalenizi, takip numarası ve e-posta adresi düzgün bir şekilde
+                                girildikten sonra kontrol edebilirsiniz.
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

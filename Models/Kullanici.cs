@@ -14,9 +14,9 @@ namespace MakaleSistemi.Models
         public string Email { get; set; } = string.Empty;
 
         [Required]
-        public string Sifre { get; set; } = string.Empty; // Şifreleme ekleyebiliriz.
+        public string Sifre { get; set; } = string.Empty;
 
         [Required]
-        public string Rol { get; set; } = string.Empty; // "Yazar", "Editör", "Hakem"
+        public string Rol { get; set; } = string.Empty;
     }
 }

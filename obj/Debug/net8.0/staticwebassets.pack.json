@@ -245,6 +245,18 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\osman1\\Desktop\\Programlama\\Yazlab2\\proje1\\MakaleSistemi\\wwwroot\\uploads\\örnek_makale1.pdf",
+      "PackagePath": "staticwebassets\\uploads\\örnek_makale1.pdf"
+    },
+    {
+      "Id": "C:\\Users\\osman1\\Desktop\\Programlama\\Yazlab2\\proje1\\MakaleSistemi\\wwwroot\\uploads\\örnek_makale2.pdf",
+      "PackagePath": "staticwebassets\\uploads\\örnek_makale2.pdf"
+    },
+    {
+      "Id": "C:\\Users\\osman1\\Desktop\\Programlama\\Yazlab2\\proje1\\MakaleSistemi\\wwwroot\\uploads\\örnek_makale3.pdf",
+      "PackagePath": "staticwebassets\\uploads\\örnek_makale3.pdf"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MakaleSistemi.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

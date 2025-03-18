@@ -1,0 +1,186 @@
+@* @{
+    ViewData["Title"] = "Makale Yükleme";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h3><i class="fas fa-upload"></i> Makale Yükle</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="Email">E-Posta</label>
+                                <input type="email" class="form-control" id="Email" name="email" required
+                                    placeholder="E-Posta adresinizi girin">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Makale">Makale PDF</label>
+                                <input type="file" class="form-control-file" id="Makale" name="makale" accept=".pdf"
+                                    required>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-block mt-3">Makale Yükle <i
+                                    class="fas fa-arrow-up"></i></button>
+                        </form>
+
+                        <div class="text-center mt-3" style="color: grey;">
+                            <p>Makale yüklerken herhangi bir sorun yaşarsanız, lütfen destek ile iletişime geçin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html> *@
+
+@{
+    ViewData["Title"] = "Makale Yükleme";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/dropzone@5.7.0/dist/min/dropzone.min.css" rel="stylesheet">
+
+    <style>
+        .form-container {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropzone {
+            border: 2px dashed #007bff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #e9ecef;
+        }
+
+        .dropzone:hover {
+            background-color: #dbe4e8;
+        }
+
+        .text-center {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .btn-block {
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+        }
+
+        .btn-block:hover {
+            background-color: #218838;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .alert-success {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h3><i class="fas fa-upload"></i> Makale Yükle</h3>
+                    </div>
+                    <div class="card-body">
+                        @if (TempData["Mesaj"] != null)
+                        {
+                            <div class="alert alert-warning text-center">@TempData["Mesaj"]</div>
+                        }
+                        <form asp-action="MakaleSistemi" method="post" enctype="multipart/form-data"
+                            class="form-container">
+                            <div class="form-group">
+                                <label for="Email">E-Posta</label>
+                                <input type="email" class="form-control" id="Email" name="YazarEmail" required
+                                    placeholder="E-Posta adresinizi girin">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Baslik">Başlık</label>
+                                <input type="text" class="form-control" id="Baslik" name="Baslik" required
+                                    placeholder="Makale başlığını girin">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Makale">Makale PDF</label>
+                                <input type="file" class="form-control-file" id="Makale" name="makale" accept=".pdf"
+                                    required>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-block mt-3">Makale Yükle <i
+                                    class="fas fa-arrow-up"></i></button>
+                        </form>
+
+                        <div class="text-center mt-3" style="color: grey;">
+                            <p>Makale yüklerken herhangi bir sorun yaşarsanız, lütfen destek ile iletişime geçin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dropzone@5.7.0/dist/min/dropzone.min.js"></script>
+    <script>
+        Dropzone.options.makaleDropzone = {
+            url: '@Url.Action("MakaleSistemi", "Makale")',
+            paramName: 'makale',
+            maxFilesize: 10, // MB cinsinden
+            acceptedFiles: '.pdf',
+            addRemoveLinks: true
+        };
+    </script>
+</body>
+
+</html>
