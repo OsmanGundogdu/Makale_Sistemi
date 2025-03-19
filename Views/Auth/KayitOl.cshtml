@@ -32,6 +32,7 @@
                         }
 
                         <form asp-action="KayitOl" method="post">
+                            @Html.AntiForgeryToken()
                             <div class="form-group">
                                 <label for="AdSoyad">Ad Soyad</label>
                                 <input type="text" class="form-control" id="AdSoyad" name="AdSoyad"
@@ -54,7 +55,7 @@
                                 <label for="Rol">Rol Seçiniz</label>
                                 <select class="form-control" id="Rol" name="Rol">
                                     <option value="Yazar">Yazar</option>
-                                    <option value="Editör">Editör</option>
+                                    <option value="Editor">Editör</option>
                                     <option value="Hakem">Hakem</option>
                                 </select>
                             </div>

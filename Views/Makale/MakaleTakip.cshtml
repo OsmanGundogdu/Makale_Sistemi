@@ -81,6 +81,7 @@
                     </div>
                     <div class="card-body">
                         <form method="post" asp-action="MakaleDurumuSorgula" class="form-container">
+                            @Html.AntiForgeryToken()
                             <div class="form-group">
                                 <label for="takipNo">Makale Takip Numarası:</label>
                                 <input type="text" id="takipNo" name="takipNo" class="form-control" required

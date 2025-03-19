@@ -39,6 +39,7 @@
                         }
 
                         <form asp-action="GirisYap" method="post">
+                            @Html.AntiForgeryToken()
                             <div class="form-group">
                                 <label for="Email">E-Posta</label>
                                 <input type="email" class="form-control" id="Email" name="email" placeholder="E-Posta"

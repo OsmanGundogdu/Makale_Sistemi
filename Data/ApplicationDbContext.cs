@@ -10,6 +10,7 @@ namespace MakaleSistemi.Data
         public DbSet<Makale> Makaleler { get; set; }
 
         public DbSet<Kullanici> Kullanicilar { get; set; }
+        public DbSet<Mesaj> Mesajlar { get; set; }
 
     }
 }

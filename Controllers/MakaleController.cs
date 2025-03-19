@@ -23,6 +23,12 @@ namespace MakaleSistemi.Controllers
         [Route("makalesistemi")]
         public IActionResult MakaleSistemi()
         {
+            var editorler = _context.Kullanicilar
+                .Where(u => u.Rol == "Editor")
+                .Select(u => new { u.Email, u.AdSoyad })
+                .ToList();
+
+            ViewBag.Editorler = editorler;
             return View();
         }
 
@@ -88,5 +94,32 @@ namespace MakaleSistemi.Controllers
 
             return View("MakaleTakip");
         }
+
+        [HttpPost]
+        [Route("makale/mesajgonder")]
+        public IActionResult MesajGonder(string yazarEmail, string aliciEmail, string icerik)
+        {
+            if (string.IsNullOrEmpty(yazarEmail) || string.IsNullOrEmpty(aliciEmail) || string.IsNullOrEmpty(icerik))
+            {
+                TempData["MesajHata"] = "Lütfen tüm alanları doldurun!";
+                return RedirectToAction("MakaleSistemi");
+            }
+
+            var mesaj = new Mesaj
+            {
+                GonderenEmail = yazarEmail,
+                AliciEmail = aliciEmail,
+                Icerik = icerik,
+                GonderimTarihi = DateTime.Now
+            };
+
+            _context.Mesajlar.Add(mesaj);
+            _context.SaveChanges();
+
+            TempData["MesajBasari"] = "Mesaj başarıyla gönderildi!";
+            return RedirectToAction("MakaleSistemi");
+        }
+
+
     }
 }
