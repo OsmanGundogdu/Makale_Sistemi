@@ -26,7 +26,7 @@ namespace MakaleSistemi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Formdaki hatalar ile geri dön
+                return View(model);
             }
 
             try
@@ -37,10 +37,8 @@ namespace MakaleSistemi.Controllers
                     return View(model);
                 }
 
-                // Şifreyi güvenli şekilde hashle
                 model.Sifre = BCrypt.Net.BCrypt.HashPassword(model.Sifre);
 
-                // Kullanıcıyı veritabanına ekle
                 _context.Kullanicilar.Add(model);
                 _context.SaveChanges();
 
@@ -50,7 +48,7 @@ namespace MakaleSistemi.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Bir hata oluştu, lütfen tekrar deneyin.");
-                Console.WriteLine($"Kayıt hatası: {ex.Message}"); // Hata mesajını logla
+                Console.WriteLine($"Kayıt hatası: {ex.Message}");
                 return View(model);
             }
         }
