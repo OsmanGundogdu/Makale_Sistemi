@@ -25,7 +25,11 @@ namespace MakaleSistemi.Controllers
         {
             var editorler = _context.Kullanicilar
                 .Where(u => u.Rol == "Editor")
-                .Select(u => new { u.Email, u.AdSoyad })
+                .Select(u => new EditorViewModel
+                {
+                    Email = u.Email,
+                    AdSoyad = u.AdSoyad
+                })
                 .ToList();
 
             ViewBag.Editorler = editorler;
