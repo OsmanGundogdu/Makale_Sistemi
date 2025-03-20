@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MakaleSistemi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+159e53c8b3ce730733a183cfba95cc7805a3606b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2d80c9a7c5997e1676125c9ed0bad5fc4d55772")]
 [assembly: System.Reflection.AssemblyProductAttribute("MakaleSistemi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MakaleSistemi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

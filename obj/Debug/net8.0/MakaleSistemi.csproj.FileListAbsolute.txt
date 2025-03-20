@@ -158,3 +158,17 @@ C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\obj\Debug\net8.
 C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\obj\Debug\net8.0\MakaleSi.BD9421D0.Up2Date
 C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\obj\Debug\net8.0\MakaleSistemi.sourcelink.json
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\itext.barcodes.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\itext.bouncy-castle-connector.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\itext.forms.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\itext.io.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\itext.kernel.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\itext.layout.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\itext.pdfa.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\itext.pdfua.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\itext.sign.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\itext.styledxmlparser.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\itext.svg.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\itext.commons.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\osman1\Desktop\Programlama\Yazlab2\proje1\MakaleSistemi\bin\Debug\net8.0\Newtonsoft.Json.dll

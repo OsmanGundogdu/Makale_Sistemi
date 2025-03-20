@@ -1,0 +1,19 @@
+@model Makale
+@{
+    ViewData["Title"] = "Makale Detayları";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-info text-white text-center">
+            <h3>@Model.Baslik</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Yazar:</strong> @Model.YazarEmail</p>
+            <p><strong>Yayın Tarihi:</strong> @Model.YuklemeTarihi.ToShortDateString()</p>
+            <p><strong>İçerik:</strong></p>
+            <div class="border p-3 bg-light">@Model.Icerik</div>
+            <a href="/makalesistemi/editor" class="btn btn-secondary mt-3">Geri Dön</a>
+        </div>
+    </div>
+</div>

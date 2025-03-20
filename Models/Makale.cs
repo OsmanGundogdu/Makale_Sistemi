@@ -21,5 +21,7 @@ namespace MakaleSistemi.Models
         public string Durum { get; set; } = "Beklemede";
 
         public DateTime YuklemeTarihi { get; set; } = DateTime.Now;
+
+        public string Icerik { get; set; } = string.Empty;
     }
 }

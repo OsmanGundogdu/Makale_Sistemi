@@ -11,6 +11,7 @@ namespace MakaleSistemi.Data
 
         public DbSet<Kullanici> Kullanicilar { get; set; }
         public DbSet<Mesaj> Mesajlar { get; set; }
+        public DbSet<LogKayit> LogKayitlari { get; set; }
 
     }
 }

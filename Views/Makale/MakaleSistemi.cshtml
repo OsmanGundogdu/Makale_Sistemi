@@ -88,50 +88,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6">
-                <div class="card shadow-lg">
-                    <div class="card-header text-center">
-                        <h3><i class="fas fa-envelope"></i> Editöre Mesaj Gönder</h3>
-                    </div>
-                    <div class="card-body">
-                        <form method="post" action="/makale/mesajgonder">
-                            @Html.AntiForgeryToken()
-                            <div class="form-group">
-                                <label for="yazarEmail">Sizin E-Postanız:</label>
-                                <input type="email" class="form-control" name="yazarEmail" required
-                                    placeholder="E-Posta adresinizi girin">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="aliciEmail">Editör Seçin:</label>
-                                <select class="form-control" name="aliciEmail" required>
-                                    @if (ViewBag.Editorler is List<EditorViewModel> editorler && editorler.Any())
-                                    {
-                                        foreach (var editor in editorler)
-                                        {
-                                            <option value="@editor.Email">@editor.AdSoyad - (@editor.Email)</option>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <option disabled selected>Henüz editör bulunamadı</option>
-                                    }
-                                </select>
-
-                            </div>
-
-                            <div class="form-group">
-                                <label for="icerik">Mesajınız:</label>
-                                <textarea class="form-control" name="icerik" rows="4" required></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-block">Mesaj Gönder <i
-                                    class="fas fa-paper-plane"></i></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
