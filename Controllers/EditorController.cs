@@ -65,18 +65,5 @@ namespace MakaleSistemi.Controllers
             return icerik.Replace("Dr.", "[Anonim]").Replace("Üniversitesi", "[Kurum]");
         }
 
-        private string PdfDosyasindanMetinOku(Stream pdfStream)
-        {
-            using (var reader = new PdfReader(pdfStream))
-            using (var pdfDocument = new PdfDocument(reader))
-            {
-                string text = "";
-                for (int i = 1; i <= pdfDocument.GetNumberOfPages(); i++)
-                {
-                    text += PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(i));
-                }
-                return text;
-            }
-        }
     }
 }

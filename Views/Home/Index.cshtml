@@ -1,8 +1,15 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Hoş Geldiniz";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="d-flex justify-content-center align-items-center vh-100 text-center">
+    <div>
+        <i class="bi bi-journal-text display-1 text-primary"></i>
+        <h1 class="mt-3 fw-bold">Makale Yükleme Sistemine Hoş Geldiniz</h1>
+        <p class="text-muted">Makale yüklemek ve yönetmek için giriş yapın veya kayıt olun.</p>
+        <a asp-controller="Makale" asp-action="MakaleSistemi" class="btn btn-primary btn-lg">Makale Yükle</a>
+    </div>
 </div>
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">

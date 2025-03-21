@@ -13,20 +13,29 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" asp-controller="Makale" asp-action="MakaleSistemi">Makale Sistemi</a>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Makale Sistemi</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Makale" asp-action="MakaleSistemi">Makale Yükle</a>
-                        </li>
-                        <li class="nav-item"></li>
-                        <a class="nav-link" asp-controller="Makale" asp-action="MakaleDurumuSorgula">Makale Durum
-                            Sorgula</a>
-                        </li>
+                        @if (Context.Session.GetString("KullaniciRol") == "Editor")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Editor" asp-action="Index">Editör Paneli</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Makale" asp-action="MakaleSistemi">Makale Yükle</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Makale" asp-action="MakaleDurumuSorgula">Makale Durum
+                                    Sorgula</a>
+                            </li>
+                        }
                     </ul>
                     <ul class="navbar-nav">
                         @if (Context.Session.GetString("KullaniciEmail") != null)

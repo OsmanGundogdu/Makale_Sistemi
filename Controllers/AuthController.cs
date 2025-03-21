@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using MakaleSistemi.Data;
 using MakaleSistemi.Models;
 using System.Linq;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace MakaleSistemi.Controllers
 {
@@ -62,7 +65,7 @@ namespace MakaleSistemi.Controllers
 
         [HttpPost]
         [Route("girisyap")]
-        public IActionResult GirisYap(string email, string sifre)
+        public async Task<IActionResult> GirisYap(string email, string sifre)
         {
             var kullanici = _context.Kullanicilar.FirstOrDefault(x => x.Email == email);
 
@@ -72,17 +75,37 @@ namespace MakaleSistemi.Controllers
                 return View();
             }
 
+            // **Kimlik Doğrulama için Claims oluştur**
+            var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, kullanici.Email),
+            new Claim(ClaimTypes.Role, kullanici.Rol)
+        };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            // **Kimliği tanımla ve cookie oluştur**
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            // **Session eklemeye devam edebilirsin**
             HttpContext.Session.SetString("KullaniciEmail", kullanici.Email);
             HttpContext.Session.SetString("KullaniciRol", kullanici.Rol);
 
+            if (kullanici.Rol == "Editor")
+            {
+                return RedirectToAction("Index", "Editor");
+            }
             return RedirectToAction("MakaleSistemi", "Makale");
         }
 
         [Route("cikisyap")]
-        public IActionResult CikisYap()
+        public async Task<IActionResult> CikisYap()
         {
-            HttpContext.Session.Clear();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Clear(); // Session'ı temizle
             return RedirectToAction("GirisYap");
         }
+
     }
 }
