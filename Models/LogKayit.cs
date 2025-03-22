@@ -8,8 +8,13 @@ namespace MakaleSistemi.Models
     public class LogKayit
     {
         public int Id { get; set; }
-        public string Aciklama { get; set; } = string.Empty;
-        public DateTime Tarih { get; set; }
+        public int MakaleId { get; set; }
+        public int KullaniciId { get; set; }
+        public string Islem { get; set; } = string.Empty;
+        public DateTime Tarih { get; set; } = DateTime.Now;
+
+        public Makale? Makale { get; set; }
+        public Kullanici? Kullanici { get; set; }
     }
 
 }

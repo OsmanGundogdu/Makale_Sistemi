@@ -15,15 +15,15 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>Tarih</th>
-                            <th>Açıklama</th>
+                            <th>İşlem</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var log in Model)
                         {
                             <tr>
-                                <td>@log.Tarih.ToShortDateString()</td>
-                                <td>@log.Aciklama</td>
+                                <td>@log.Tarih.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>@log.Islem</td>
                             </tr>
                         }
                     </tbody>

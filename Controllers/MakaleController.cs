@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Parser;
+using Microsoft.EntityFrameworkCore;
 
 namespace MakaleSistemi.Controllers
 {
@@ -53,6 +54,25 @@ namespace MakaleSistemi.Controllers
         //             makale.CopyTo(stream);
         //         }
 
+        //         string icerik = "";
+
+        //         try
+        //         {
+        //             using (PdfReader pdfReader = new PdfReader(filePath))
+        //             using (PdfDocument pdfDocument = new PdfDocument(pdfReader))
+        //             {
+        //                 for (int i = 1; i <= pdfDocument.GetNumberOfPages(); i++)
+        //                 {
+        //                     icerik += PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(i)) + "\n";
+        //                 }
+        //             }
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             TempData["Mesaj"] = "PDF içeriği okunamadı: " + ex.Message;
+        //             return View();
+        //         }
+
         //         var yeniMakale = new Makale
         //         {
         //             Baslik = model.Baslik,
@@ -60,7 +80,8 @@ namespace MakaleSistemi.Controllers
         //             DosyaYolu = "/uploads/" + makale.FileName,
         //             TakipNumarasi = Guid.NewGuid().ToString(),
         //             Durum = "Yükleme Başarılı",
-        //             YuklemeTarihi = DateTime.Now
+        //             YuklemeTarihi = DateTime.Now,
+        //             Icerik = icerik
         //         };
 
         //         _context.Makaleler.Add(yeniMakale);
@@ -121,8 +142,22 @@ namespace MakaleSistemi.Controllers
                     Icerik = icerik
                 };
 
+                _context.Database.ExecuteSqlRaw("PRAGMA foreign_keys = OFF;");
                 _context.Makaleler.Add(yeniMakale);
                 _context.SaveChanges();
+                _context.Database.ExecuteSqlRaw("PRAGMA foreign_keys = ON;");
+
+                var logKayit = new LogKayit
+                {
+                    MakaleId = yeniMakale.Id,
+                    Islem = $"Makale yüklendi: {yeniMakale.Baslik}",
+                    Tarih = DateTime.Now
+                };
+
+                _context.Database.ExecuteSqlRaw("PRAGMA foreign_keys = OFF;");
+                _context.LogKayitlari.Add(logKayit);
+                _context.SaveChanges();
+                _context.Database.ExecuteSqlRaw("PRAGMA foreign_keys = ON;");
 
                 TempData["BasariMesaji"] = "Makale başarıyla yüklendi!";
                 return RedirectToAction("MakaleSistemi");
@@ -182,7 +217,7 @@ namespace MakaleSistemi.Controllers
 
         [HttpPost]
         [Route("makale/mesajgonder")]
-        public IActionResult MesajGonder(string yazarEmail, string aliciEmail, string icerik)
+        public IActionResult MesajGonder(string yazarEmail, string aliciEmail, string icerik, string? takipNo = null)
         {
             if (string.IsNullOrEmpty(yazarEmail) || string.IsNullOrEmpty(aliciEmail) || string.IsNullOrEmpty(icerik))
             {
@@ -198,12 +233,39 @@ namespace MakaleSistemi.Controllers
                 GonderimTarihi = DateTime.Now
             };
 
+            _context.Database.ExecuteSqlRaw("PRAGMA foreign_keys = OFF;");
             _context.Mesajlar.Add(mesaj);
             _context.SaveChanges();
+            _context.Database.ExecuteSqlRaw("PRAGMA foreign_keys = ON;");
+
+            int kullaniciId = _context.Kullanicilar
+                .Where(u => u.Email == yazarEmail)
+                .Select(u => u.Id)
+                .FirstOrDefault();
+
+            int makaleId = _context.Makaleler
+                .Where(m => m.TakipNumarasi == takipNo)
+                .Select(m => m.Id)
+                .FirstOrDefault();
+
+            var logKayit = new LogKayit
+            {
+                Islem = $"Mesaj gönderildi: {yazarEmail} → {aliciEmail} | İçerik: {icerik.Substring(0, Math.Min(20, icerik.Length))}...",
+                KullaniciId = kullaniciId,
+                MakaleId = makaleId,
+                Tarih = DateTime.Now,
+
+            };
+
+            _context.Database.ExecuteSqlRaw("PRAGMA foreign_keys = OFF;");
+            _context.LogKayitlari.Add(logKayit);
+            _context.SaveChanges();
+            _context.Database.ExecuteSqlRaw("PRAGMA foreign_keys = ON;");
 
             TempData["MesajBasari"] = "Mesaj başarıyla gönderildi!";
             return RedirectToAction("MakaleTakip");
         }
+
 
 
     }

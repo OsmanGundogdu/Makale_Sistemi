@@ -89,18 +89,14 @@ namespace MakaleSistemi.Controllers
             HttpContext.Session.SetString("KullaniciEmail", kullanici.Email);
             HttpContext.Session.SetString("KullaniciRol", kullanici.Rol);
 
-            if (kullanici.Rol == "Editor")
-            {
-                return RedirectToAction("Index", "Editor");
-            }
-            return RedirectToAction("MakaleSistemi", "Makale");
+            return RedirectToAction("Index", "Home");
         }
 
         [Route("cikisyap")]
         public async Task<IActionResult> CikisYap()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.Clear(); 
+            HttpContext.Session.Clear();
             return RedirectToAction("GirisYap");
         }
 
