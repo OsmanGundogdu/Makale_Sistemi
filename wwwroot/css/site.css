@@ -8,7 +8,11 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -18,5 +22,34 @@ html {
 }
 
 body {
+  padding-top: 120px;
   margin-bottom: 60px;
+}
+
+#scrollToTopBtn {
+  display: none;
+  /* Başlangıçta gizli */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #fa7272;
+  color: black;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+#scrollToTopBtn:hover {
+  background-color: #80fc7b;
+}
+
+#scrollToTopBtn.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
 }

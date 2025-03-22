@@ -75,7 +75,6 @@ namespace MakaleSistemi.Controllers
                 return View();
             }
 
-            // **Kimlik Doğrulama için Claims oluştur**
             var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, kullanici.Email),
@@ -85,10 +84,8 @@ namespace MakaleSistemi.Controllers
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
 
-            // **Kimliği tanımla ve cookie oluştur**
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-            // **Session eklemeye devam edebilirsin**
             HttpContext.Session.SetString("KullaniciEmail", kullanici.Email);
             HttpContext.Session.SetString("KullaniciRol", kullanici.Rol);
 
@@ -103,7 +100,7 @@ namespace MakaleSistemi.Controllers
         public async Task<IActionResult> CikisYap()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.Clear(); // Session'ı temizle
+            HttpContext.Session.Clear(); 
             return RedirectToAction("GirisYap");
         }
 
