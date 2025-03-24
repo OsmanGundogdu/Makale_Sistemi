@@ -24,10 +24,20 @@
                         @if (Context.Session.GetString("KullaniciRol") == "Editor")
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Editor" asp-action="Index">Editör Paneli</a>
+                                <a class="nav-link" asp-controller="Editor" asp-action="Index">Makale Yönet</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Editor" asp-action="Loglar">Log Kayitlari</a>
+                            </li>
+                        }
+                        else if (Context.Session.GetString("KullaniciRol") == "Hakem")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Hakem" asp-action="Index">Makale Değerlendir</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Hakem" asp-action="AtanmisMakaleler">Değerlendirdiğim
+                                    Makaleler</a>
                             </li>
                         }
                         else

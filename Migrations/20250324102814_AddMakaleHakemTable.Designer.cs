@@ -3,6 +3,7 @@ using System;
 using MakaleSistemi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MakaleSistemi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250324102814_AddMakaleHakemTable")]
+    partial class AddMakaleHakemTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
@@ -116,6 +119,9 @@ namespace MakaleSistemi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Aciklama")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Durum")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -126,17 +132,9 @@ namespace MakaleSistemi.Migrations
                     b.Property<int>("MakaleId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Puan")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Tarih")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Yorum")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("HakemId");
 
                     b.HasIndex("MakaleId");
 
@@ -190,11 +188,19 @@ namespace MakaleSistemi.Migrations
 
             modelBuilder.Entity("MakaleSistemi.Models.MakaleHakem", b =>
                 {
+                    b.HasOne("MakaleSistemi.Models.Kullanici", "Hakem")
+                        .WithMany()
+                        .HasForeignKey("HakemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MakaleSistemi.Models.Makale", "Makale")
                         .WithMany()
                         .HasForeignKey("MakaleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Hakem");
 
                     b.Navigation("Makale");
                 });

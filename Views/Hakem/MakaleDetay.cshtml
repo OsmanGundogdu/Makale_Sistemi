@@ -1,0 +1,42 @@
+@model MakaleSistemi.Models.Makale
+
+@{
+    ViewData["Title"] = "Makale Detayları";
+}
+
+<h2 class="mt-4">Makale Detayları</h2>
+
+<div class="card mt-3 p-3">
+    <h4>@Model.Baslik</h4>
+    <p><strong>Gönderim Tarihi:</strong> @Model.YuklemeTarihi.ToShortDateString()</p>
+
+    <hr>
+
+    <h5>Makale İçeriği</h5>
+    <div class="border p-3 bg-light">
+        @Model.Icerik
+    </div>
+
+    <hr>
+
+    <h4>Değerlendirme</h4>
+    <form method="post" action="@Url.Action("Degerlendir", "Hakem")">
+        <input type="hidden" name="makaleId" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label class="form-label">Durum Seç:</label>
+            <select class="form-select" name="durum" required>
+                <option value="Kabul">Kabul</option>
+                <option value="Reddedildi">Reddedildi</option>
+                <option value="Revizyon İstendi">Revizyon İstendi</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ek Açıklamalar (Opsiyonel):</label>
+            <textarea class="form-control" name="aciklama" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Değerlendirmeyi Kaydet</button>
+    </form>
+</div>

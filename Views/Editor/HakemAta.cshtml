@@ -1,0 +1,55 @@
+@model Makale
+@{
+    ViewData["Title"] = "Hakem Ata";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h3><i class="fas fa-book"></i> Makale: @Model.Baslik</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Yazar:</strong> @Model.YazarEmail</p>
+            <p><strong>Yükleme Tarihi:</strong> @Model.YuklemeTarihi.ToShortDateString()</p>
+            <p>
+                <strong>İçerik:</strong>
+                <a href="@Url.Action("MakaleDetay", "Editor", new { id = Model.Id })" class="btn btn-info btn-sm">
+                    İçeriği Gör
+                </a>
+            </p>
+
+            <form method="post" action="/makalesistemi/editor/hakem-ata">
+                <input type="hidden" name="makaleId" value="@Model.Id" />
+
+                <div class="form-group">
+                    <label for="hakemSec">Hakem Seçin</label>
+                    <select name="hakemId" id="hakemSec" class="form-select" required>
+                        @if (ViewBag.Hakemler != null)
+                        {
+                            @foreach (var hakem in (SelectList)ViewBag.Hakemler)
+                            {
+                                <option value="@hakem.Value">@hakem.Text</option>
+                            }
+                        }
+                        else
+                        {
+                            <option disabled selected>Hakem bulunamadı</option>
+                        }
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Hakeme Ata</button>
+            </form>
+        </div>
+    </div>
+
+    @if (TempData["BasariMesaji"] != null)
+    {
+        <div class="alert alert-success mt-3">@TempData["BasariMesaji"]</div>
+    }
+
+    @if (TempData["HataMesaji"] != null)
+    {
+        <div class="alert alert-danger mt-3">@TempData["HataMesaji"]</div>
+    }
+</div>

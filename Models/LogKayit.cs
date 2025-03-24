@@ -12,7 +12,6 @@ namespace MakaleSistemi.Models
         public int KullaniciId { get; set; }
         public string Islem { get; set; } = string.Empty;
         public DateTime Tarih { get; set; } = DateTime.Now;
-
         public Makale? Makale { get; set; }
         public Kullanici? Kullanici { get; set; }
     }
