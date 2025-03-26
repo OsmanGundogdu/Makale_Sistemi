@@ -76,21 +76,25 @@ namespace MakaleSistemi.Controllers
             }
 
             var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, kullanici.Email),
-            new Claim(ClaimTypes.Role, kullanici.Rol)
-        };
+            {
+                new Claim(ClaimTypes.Name, kullanici.Email),
+                new Claim(ClaimTypes.Role, kullanici.Rol),
+                new Claim(ClaimTypes.NameIdentifier, kullanici.Id.ToString())
+            };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
+            var userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
             HttpContext.Session.SetString("KullaniciEmail", kullanici.Email);
             HttpContext.Session.SetString("KullaniciRol", kullanici.Rol);
 
             return RedirectToAction("Index", "Home");
         }
+
 
         [Route("cikisyap")]
         public async Task<IActionResult> CikisYap()

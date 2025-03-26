@@ -100,7 +100,7 @@ namespace MakaleSistemi.Controllers
             {
                 MakaleId = makaleId,
                 HakemId = hakemId,
-                Durum = "İnceleniyor",
+                Durum = "Hakeme Atandı",
                 Tarih = DateTime.Now
             };
 

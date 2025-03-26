@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using System.Security.Claims;
+using System.Diagnostics;
 
 namespace MakaleSistemi.Controllers
 {
@@ -20,7 +21,12 @@ namespace MakaleSistemi.Controllers
         [Route("makalesistemi/hakem")]
         public IActionResult Index()
         {
+            Debug.WriteLine("Index metodu çalıştı.");
+
             var hakemId = GetCurrentUserId();
+
+            Debug.WriteLine($"GetCurrentUserId çağrıldı. Hakem ID: {hakemId}");
+
             var makaleler = _context.MakaleHakemler
                                     .Where(mh => mh.HakemId == hakemId && mh.Durum == "İnceleniyor")
                                     .Select(mh => mh.Makale)
@@ -28,6 +34,7 @@ namespace MakaleSistemi.Controllers
 
             return View(makaleler);
         }
+
 
         [Route("makalesistemi/hakem/makale-detay/{id}")]
         public IActionResult MakaleDetay(int id)
@@ -46,29 +53,43 @@ namespace MakaleSistemi.Controllers
             var atama = _context.MakaleHakemler.FirstOrDefault(mh => mh.MakaleId == makaleId && mh.HakemId == hakemId);
             if (atama == null) return NotFound();
 
+            // burası değişmiş olması lazım. default değer değil de inputta girdiğim değer alınmalı.
+            if (string.IsNullOrWhiteSpace(yorum))
+            {
+                yorum = "Hakem yorumu eklenmemiş.";
+            }
+
             var degerlendirme = new MakaleHakem
             {
+                // durum düzgün gelmiyor
+                Durum = atama.Durum,
                 MakaleId = makaleId,
                 HakemId = hakemId,
+                // yorum düzgün gelmiyor
                 Yorum = yorum,
                 Puan = puan,
                 Tarih = DateTime.Now
             };
 
             _context.MakaleHakemler.Add(degerlendirme);
-            atama.Durum = "Tamamlandı";
+            // atama.Durum = "Tamamlandı";
             _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
 
-        // current user id düzgün alınmıyor. bu yüzden hakem makale değerlendir sayfasında size atanmış makale bulunmamaktadır çıktısı alıyoruz.
         private int GetCurrentUserId()
         {
+            if (User.Identity == null || !User.Identity.IsAuthenticated)
+            {
+                return 0;
+            }
+
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
             return userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
         }
+
 
         [Route("makalesistemi/hakem/atanmis-makaleler")]
         public IActionResult AtanmisMakaleler()
