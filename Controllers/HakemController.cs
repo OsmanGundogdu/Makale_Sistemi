@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using System.Security.Claims;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace MakaleSistemi.Controllers
 {
@@ -21,14 +22,10 @@ namespace MakaleSistemi.Controllers
         [Route("makalesistemi/hakem")]
         public IActionResult Index()
         {
-            Debug.WriteLine("Index metodu çalıştı.");
-
             var hakemId = GetCurrentUserId();
 
-            Debug.WriteLine($"GetCurrentUserId çağrıldı. Hakem ID: {hakemId}");
-
             var makaleler = _context.MakaleHakemler
-                                    .Where(mh => mh.HakemId == hakemId && mh.Durum == "İnceleniyor")
+                                    .Where(mh => mh.HakemId == hakemId && mh.Durum == "Hakeme Atandı")
                                     .Select(mh => mh.Makale)
                                     .ToList();
 
@@ -47,13 +44,12 @@ namespace MakaleSistemi.Controllers
 
         [HttpPost]
         [Route("makalesistemi/hakem/degerlendir")]
-        public IActionResult Degerlendir(int makaleId, string yorum, int puan)
+        public IActionResult Degerlendir(int makaleId, string yorum, string durum)
         {
             var hakemId = GetCurrentUserId();
             var atama = _context.MakaleHakemler.FirstOrDefault(mh => mh.MakaleId == makaleId && mh.HakemId == hakemId);
             if (atama == null) return NotFound();
 
-            // burası değişmiş olması lazım. default değer değil de inputta girdiğim değer alınmalı.
             if (string.IsNullOrWhiteSpace(yorum))
             {
                 yorum = "Hakem yorumu eklenmemiş.";
@@ -61,22 +57,35 @@ namespace MakaleSistemi.Controllers
 
             var degerlendirme = new MakaleHakem
             {
-                // durum düzgün gelmiyor
-                Durum = atama.Durum,
+                Durum = durum,
                 MakaleId = makaleId,
                 HakemId = hakemId,
-                // yorum düzgün gelmiyor
                 Yorum = yorum,
-                Puan = puan,
                 Tarih = DateTime.Now
             };
 
             _context.MakaleHakemler.Add(degerlendirme);
-            // atama.Durum = "Tamamlandı";
+            var makale = _context.Makaleler.FirstOrDefaultAsync(m => m.Id == makaleId).Result;
+            if (makale != null)
+            {
+                makale.Durum = durum;
+            }
             _context.SaveChanges();
+
+            var logKayit = new LogKayit
+            {
+                Islem = $"Makale ID: {makaleId} hakem değerlendirilmesi yapıldı. Hakem: {hakemId}, Durum: {durum}",
+                Tarih = DateTime.Now
+            };
+
+            _context.Database.ExecuteSqlRaw("PRAGMA foreign_keys = OFF;");
+            _context.LogKayitlari.Add(logKayit);
+            _context.SaveChanges();
+            _context.Database.ExecuteSqlRaw("PRAGMA foreign_keys = ON;");
 
             return RedirectToAction("Index");
         }
+
 
 
         private int GetCurrentUserId()
@@ -91,18 +100,18 @@ namespace MakaleSistemi.Controllers
         }
 
 
-        [Route("makalesistemi/hakem/atanmis-makaleler")]
-        public IActionResult AtanmisMakaleler()
+        [Route("makalesistemi/hakem/degerlendirdigim-makaleler")]
+        public IActionResult DegerlendirdigimMakaleler()
         {
             var hakemId = GetCurrentUserId();
 
             var degerlendirdigiMakaleler = _context.MakaleHakemler
-                .Where(d => d.HakemId == hakemId)
+                .Where(d => d.HakemId == hakemId && d.Durum != "Hakeme Atandı")
                 .Select(d => new
                 {
                     Id = d.MakaleId,
                     Baslik = d.Makale.Baslik,
-                    Durum = d.Makale.Durum
+                    Durum = d.Durum
                 })
                 .ToList<dynamic>();
 

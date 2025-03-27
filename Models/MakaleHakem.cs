@@ -11,7 +11,6 @@ namespace MakaleSistemi.Models
         public int MakaleId { get; set; }
         public int HakemId { get; set; }
         public string? Yorum { get; set; } = string.Empty;
-        public int Puan { get; set; }
         public DateTime Tarih { get; set; }
         public string Durum { get; set; } = string.Empty;
         public Makale Makale { get; set; } = null!;
