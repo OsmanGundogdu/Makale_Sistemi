@@ -77,7 +77,7 @@ namespace MakaleSistemi.Controllers
             }
 
             var hakemler = _context.Kullanicilar
-                .Where(u => u.Rol == "Hakem")
+                .Where(u => u.Rol == "Hakem" && u.IlgiAlani == makale.Konu)
                 .Select(h => new SelectListItem { Value = h.Id.ToString(), Text = h.AdSoyad })
                 .ToList();
 

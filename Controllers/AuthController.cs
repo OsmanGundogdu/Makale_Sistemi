@@ -42,6 +42,12 @@ namespace MakaleSistemi.Controllers
 
                 model.Sifre = BCrypt.Net.BCrypt.HashPassword(model.Sifre);
 
+                if (model.Rol == "Hakem" && string.IsNullOrWhiteSpace(model.IlgiAlani))
+                {
+                    ModelState.AddModelError("IlgiAlani", "Hakem olarak kayıt olurken ilgi alanı girmeniz zorunludur!");
+                    return View(model);
+                }
+
                 _context.Kullanicilar.Add(model);
                 _context.SaveChanges();
 
@@ -55,6 +61,7 @@ namespace MakaleSistemi.Controllers
                 return View(model);
             }
         }
+
 
 
         [Route("girisyap")]

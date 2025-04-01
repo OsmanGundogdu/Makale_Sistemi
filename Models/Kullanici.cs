@@ -18,5 +18,7 @@ namespace MakaleSistemi.Models
 
         [Required]
         public string Rol { get; set; } = string.Empty;
+
+        public string? IlgiAlani { get; set; }
     }
 }

@@ -18,10 +18,12 @@ namespace MakaleSistemi.Models
 
         public string TakipNumarasi { get; set; } = string.Empty;
 
-        public string Durum { get; set; } = "Beklemede";
+        public string Durum { get; set; } = "Yükleme Başarılı";
 
         public DateTime YuklemeTarihi { get; set; } = DateTime.Now;
 
         public string Icerik { get; set; } = string.Empty;
+
+        public string Konu { get; set; } = string.Empty;
     }
 }

@@ -81,7 +81,8 @@ namespace MakaleSistemi.Controllers
                     TakipNumarasi = Guid.NewGuid().ToString(),
                     Durum = "Yükleme Başarılı",
                     YuklemeTarihi = DateTime.Now,
-                    Icerik = icerik
+                    Icerik = icerik,
+                    Konu = model.Konu
                 };
 
                 _context.Database.ExecuteSqlRaw("PRAGMA foreign_keys = OFF;");
@@ -110,6 +111,7 @@ namespace MakaleSistemi.Controllers
                 return View();
             }
         }
+
 
 
         [Route("makaledurumsorgulama")]
