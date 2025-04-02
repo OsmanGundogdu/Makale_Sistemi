@@ -19,6 +19,7 @@ else
                 <th>Başlık</th>
                 <th>Gönderim Tarihi</th>
                 <th>İncele</th>
+                <th>İndir</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,18 @@ else
                         <a href="@Url.Action("MakaleDetay", "Hakem", new { id = makale.Id })" class="btn btn-primary">
                             Detaylar
                         </a>
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(makale.DosyaYolu))
+                        {
+                            <a href="@Url.Content(makale.DosyaYolu)" class="btn btn-success btn-sm" download>
+                                <i class="fas fa-file-pdf"></i> PDF'yi İndir
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="text-danger">PDF Bulunamadı</span>
+                        }
                     </td>
                 </tr>
             }

@@ -54,4 +54,9 @@
     {
         <div class="alert alert-danger mt-3">@TempData["HataMesaji"]</div>
     }
+
+    @if (TempData["UyariMesaji"] != null)
+    {
+        <div class="alert alert-warning mt-3">@TempData["UyariMesaji"]</div>
+    }
 </div>

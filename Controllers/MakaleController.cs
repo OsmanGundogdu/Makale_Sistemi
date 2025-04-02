@@ -144,20 +144,24 @@ namespace MakaleSistemi.Controllers
                 .ToList();
 
             ViewBag.Editorler = editorler;
+
             var makale = _context.Makaleler
                 .FirstOrDefault(m => m.TakipNumarasi == takipNo && m.YazarEmail == email);
 
             if (makale == null)
             {
-                ViewBag.Mesaj = "Makale bulunamadı!";
-                return View("MakaleTakip");
+                ViewBag.HataMesaji = "Makale bulunamadı!";
+                return View("DurumveMesajGonderme");
             }
 
+            // Makale bilgilerini ViewModel üzerinden View'a taşıyoruz
+            ViewData["Makale"] = makale;  // ViewData kullanarak makale bilgilerini aktarıyoruz
             ViewBag.TakipNo = takipNo;
             ViewBag.Durum = makale.Durum;
 
-            return View("MakaleTakip");
+            return View("DurumveMesajGonderme");
         }
+
 
         [HttpPost]
         [Route("makale/mesajgonder")]

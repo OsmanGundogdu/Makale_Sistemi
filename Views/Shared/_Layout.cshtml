@@ -29,6 +29,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Editor" asp-action="Loglar">Log Kayitlari</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Editor" asp-action="GelenMesajlar">Gelen Mesajlar</a>
+                            </li>
                         }
                         else if (Context.Session.GetString("KullaniciRol") == "Hakem")
                         {
@@ -47,8 +50,8 @@
                                 <a class="nav-link" asp-controller="Makale" asp-action="MakaleSistemi">Makale Yükle</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Makale" asp-action="MakaleDurumuSorgula">Sorgula
-                                    ve Mesaj Gönder</a>
+                                <a class="nav-link" asp-controller="Makale" asp-action="MakaleDurumuSorgula">Makale
+                                    Sorgula</a>
                             </li>
                         }
                     </ul>

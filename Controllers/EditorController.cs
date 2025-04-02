@@ -96,6 +96,17 @@ namespace MakaleSistemi.Controllers
                 return RedirectToAction("HakemAta", new { id = makaleId });
             }
 
+            if (_context.MakaleHakemler.Any(mh => mh.MakaleId == makaleId))
+            {
+                if (_context.MakaleHakemler.Any(mh => mh.MakaleId == makaleId && mh.HakemId == hakemId))
+                {
+                    TempData["UyariMesaji"] = "Bu makale zaten bu hakeme atanmış.";
+                    return RedirectToAction("HakemAta", new { id = makaleId });
+                }
+                TempData["HataMesaji"] = "Bu makale zaten bir hakeme atanmış.";
+                return RedirectToAction("HakemAta", new { id = makaleId });
+            }
+
             var atama = new MakaleHakem
             {
                 MakaleId = makaleId,
@@ -129,7 +140,15 @@ namespace MakaleSistemi.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult GelenMesajlar()
+        {
+            var mesajlar = _context.Mesajlar
+            .Where(m => User.Identity != null && m.AliciEmail == User.Identity.Name)
+                .OrderByDescending(m => m.GonderimTarihi)
+                .ToList();
 
+            return View(mesajlar);
+        }
 
 
     }
